@@ -16,25 +16,28 @@ const app = express();
 //Port which the Express.js server will run
 const port = 3000;
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-
-
+// Define a route for '/notes'
+app.get('/notes', (req, res) => {
+    console.log('Accessed /notes route'); // Add this line for logging
+    res.sendFile(path.join(__dirname, '/notes.html'));
+  });
 
 
 // Define a default route
-// Serve 'index.html' as the default route ('/')
+// Serve 'index.html' as the default route ('*')
 // the star is a wildcard that will match any route not previously defined
+// very important to run this route last in the code
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 
-// Define a route for '/notes'
-app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, 'notes.html'));
-  });
+
   
 
 // Start the server
